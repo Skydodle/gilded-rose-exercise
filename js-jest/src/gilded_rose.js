@@ -29,29 +29,31 @@ class Shop {
           item.quality--;
         }
         // NOT REGULAR ITEMS (brie & pass)
-      } else {
+      } else if (isPasses && item.quality < 50) {
         // quality is never over 50
-        if (item.quality < 50) {
-          // increase quality by 1 per day
-          item.quality++;
-          // if its a pass
-          if (isPasses) {
-            // 10 days or less
-            if (item.sellIn < 11) {
-              // increase another 1 if under 50 (+2)
-              if (item.quality < 50) {
-                item.quality++;
-              }
-            }
-            // 5 day or less
-            if (item.sellIn < 6) {
-              // increase another 1 if under 50 (+3)
-              if (item.quality < 50) {
-                item.quality++;
-              }
-            }
+        // if (item.quality < 50) {
+        // increase quality by 1 per day
+        item.quality++;
+        // if its a pass
+        if (isPasses) {
+          // 10 days or less
+          if (item.sellIn < 11) {
+            // increase another 1 if under 50 (+2)
+            // if (item.quality < 50) {
+            item.quality++;
+          }
+          // }
+          // 5 day or less
+          if (item.sellIn < 6) {
+            // increase another 1 if under 50 (+3)
+            // if (item.quality < 50) {
+            item.quality++;
+            // }
+            // }
           }
         }
+      } else if (isBrie && item.quality < 50) {
+        item.quality++;
       }
       // decrement sellIn if not Sulfuras
       // if (item.name != "Sulfuras, Hand of Ragnaros") {
