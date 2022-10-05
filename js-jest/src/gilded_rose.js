@@ -13,21 +13,20 @@ class Shop {
   updateQuality() {
     this.items.forEach((item) => {
       item.sellIn--;
-      // if (item.name == "Sulfuras, Hand of Ragnaros") {
-      //   item.sellIn--;
-      // }
+
+      const isRegularItem =
+        item.name != "Aged Brie" &&
+        item.name != "Backstage passes to a TAFKAL80ETC concert" &&
+        item.name != "Sulfuras, Hand of Ragnaros";
       // REGULAR ITEMS quality -1 per day
       // if item is not brie and not concert pass (these two increase qlt per day instead)
-      if (
-        item.name != "Aged Brie" &&
-        item.name != "Backstage passes to a TAFKAL80ETC concert"
-      ) {
+      if (isRegularItem) {
         // quality is greater than 0
         if (item.quality > 0) {
           // not sulfuras
           if (item.name != "Sulfuras, Hand of Ragnaros") {
             // decrement quality by 1 per day
-            item.quality = item.quality - 1;
+            item.quality--;
           }
         }
         // NOT REGULAR ITEMS (brie & pass)
@@ -35,21 +34,21 @@ class Shop {
         // quality is never over 50
         if (item.quality < 50) {
           // increase quality by 1 per day
-          item.quality = item.quality + 1;
+          item.quality++;
           // if its a pass
           if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
             // 10 days or less
             if (item.sellIn < 11) {
               // increase another 1 if under 50 (+2)
               if (item.quality < 50) {
-                item.quality = item.quality + 1;
+                item.quality++;
               }
             }
             // 5 day or less
             if (item.sellIn < 6) {
               // increase another 1 if under 50 (+3)
               if (item.quality < 50) {
-                item.quality = item.quality + 1;
+                item.quality++;
               }
             }
           }
@@ -69,7 +68,7 @@ class Shop {
             // quality decrease 1 more per day (double)
             if (item.quality > 0) {
               if (item.name != "Sulfuras, Hand of Ragnaros") {
-                item.quality = item.quality - 1;
+                item.quality--;
               }
             }
             // yes pass
