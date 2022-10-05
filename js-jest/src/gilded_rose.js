@@ -17,7 +17,6 @@ class Shop {
       const isBrie = item.name == "Aged Brie";
       const isPasses = item.name == "Backstage passes to a TAFKAL80ETC concert";
       const isSulfuras = item.name == "Sulfuras, Hand of Ragnaros";
-
       const isRegularItem = !isBrie && !isPasses && !isSulfuras;
 
       // REGULAR ITEMS quality -1 per day
@@ -26,10 +25,8 @@ class Shop {
         // quality is greater than 0
         if (item.quality > 0) {
           // not sulfuras
-          if (!isSulfuras) {
-            // decrement quality by 1 per day
-            item.quality--;
-          }
+          // decrement quality by 1 per day
+          item.quality--;
         }
         // NOT REGULAR ITEMS (brie & pass)
       } else {
