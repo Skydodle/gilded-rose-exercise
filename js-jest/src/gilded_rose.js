@@ -12,6 +12,9 @@ class Shop {
   }
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].name == "Sulfuras, Hand of Ragnaros") {
+        this.items[i].sellIn--;
+      }
       // REGULAR ITEMS quality -1 per day
       // if item is not brie and not concert pass (these two increase qlt per day instead)
       if (
