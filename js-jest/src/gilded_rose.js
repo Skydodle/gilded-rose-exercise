@@ -79,11 +79,11 @@ class Shop {
               this.items[i].quality - this.items[i].quality;
           }
           // yes brie
-        } else {
-          if (this.items[i].quality < 50) {
-            // increase quality by 1 more ???
-            this.items[i].quality = this.items[i].quality + 1;
-          }
+          // } else {
+          //   if (this.items[i].quality < 50) {
+          //     // increase quality by 1 more ???
+          //     this.items[i].quality = this.items[i].quality + 1;
+          //   }
         }
       }
     }
