@@ -40,6 +40,10 @@ class Shop {
           // increase another 1 if under 50 (+3)
           item.quality++;
         }
+        // When expired
+        if (item.sellIn < 0) {
+          item.quality = 0;
+        }
         // AGED BRIE
       } else if (isBrie && item.quality < 50) {
         // increase by 1 as older
@@ -63,16 +67,16 @@ class Shop {
               }
             }
             // yes pass
-          } else {
-            // set quality to zero
-            item.quality = item.quality - item.quality;
+            // } else {
+            //   // set quality to zero
+            //   item.quality = item.quality - item.quality;
+            // }
+            // yes brie
+            // } else {
+            //   if (item.quality < 50) {
+            //     // increase quality by 1 more ???
+            //     item.quality = item.quality + 1;
           }
-          // yes brie
-          // } else {
-          //   if (item.quality < 50) {
-          //     // increase quality by 1 more ???
-          //     item.quality = item.quality + 1;
-          //   }
         }
       }
     });
