@@ -12,9 +12,10 @@ class Shop {
   }
   updateQuality() {
     this.items.forEach((item) => {
-      if (item.name == "Sulfuras, Hand of Ragnaros") {
-        item.sellIn--;
-      }
+      item.sellIn--;
+      // if (item.name == "Sulfuras, Hand of Ragnaros") {
+      //   item.sellIn--;
+      // }
       // REGULAR ITEMS quality -1 per day
       // if item is not brie and not concert pass (these two increase qlt per day instead)
       if (
@@ -55,9 +56,9 @@ class Shop {
         }
       }
       // decrement sellIn if not Sulfuras
-      if (item.name != "Sulfuras, Hand of Ragnaros") {
-        item.sellIn = item.sellIn - 1;
-      }
+      // if (item.name != "Sulfuras, Hand of Ragnaros") {
+      //   item.sellIn = item.sellIn - 1;
+      // }
       // if expired
       if (item.sellIn < 0) {
         // not brie
