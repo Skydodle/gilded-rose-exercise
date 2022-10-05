@@ -19,40 +19,30 @@ class Shop {
       const isSulfuras = item.name == "Sulfuras, Hand of Ragnaros";
       const isRegularItem = !isBrie && !isPasses && !isSulfuras;
 
-      // REGULAR ITEMS quality -1 per day
-      // if item is not brie and not concert pass (these two increase qlt per day instead)
+      // REGULAR ITEMS
       if (isRegularItem) {
         // quality is greater than 0
         if (item.quality > 0) {
-          // not sulfuras
           // decrement quality by 1 per day
           item.quality--;
         }
-        // NOT REGULAR ITEMS (brie & pass)
+        // CONCERT PASS
       } else if (isPasses && item.quality < 50) {
-        // quality is never over 50
-        // if (item.quality < 50) {
-        // increase quality by 1 per day
+        // increase quality by 1 per day cap at 49
         item.quality++;
-        // if its a pass
-        if (isPasses) {
-          // 10 days or less
-          if (item.sellIn < 11) {
-            // increase another 1 if under 50 (+2)
-            // if (item.quality < 50) {
-            item.quality++;
-          }
-          // }
-          // 5 day or less
-          if (item.sellIn < 6) {
-            // increase another 1 if under 50 (+3)
-            // if (item.quality < 50) {
-            item.quality++;
-            // }
-            // }
-          }
+        // 10 days or less
+        if (item.sellIn < 11) {
+          // increase another 1 if under 50 (+2)
+          item.quality++;
         }
+        // 5 day or less
+        if (item.sellIn < 6) {
+          // increase another 1 if under 50 (+3)
+          item.quality++;
+        }
+        // AGED BRIE
       } else if (isBrie && item.quality < 50) {
+        // increase by 1 as older
         item.quality++;
       }
       // decrement sellIn if not Sulfuras
