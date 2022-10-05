@@ -12,6 +12,7 @@ class Shop {
   }
   updateQuality() {
     this.items.forEach((item) => {
+      // All items sellIn decrement per day
       item.sellIn--;
 
       const isBrie = item.name == "Aged Brie";
@@ -19,69 +20,42 @@ class Shop {
       const isSulfuras = item.name == "Sulfuras, Hand of Ragnaros";
       const isRegularItem = !isBrie && !isPasses && !isSulfuras;
 
+      const isQualityUnder50 = item.quality < 50;
+      const isQualityOver0 = item.quality > 0;
+      const isExpired = item.sellIn < 0;
+
+      // Seprate logic by item type
       // REGULAR ITEMS
       if (isRegularItem) {
         // quality is greater than 0
-        if (item.quality > 0) {
-          // decrement quality by 1 per day
+        // decrement quality by 1 per day & double if expired
+        if (isQualityOver0) {
           item.quality--;
-          if (item.sellIn < 0) {
+          if (isExpired) {
             item.quality--;
           }
         }
         // CONCERT PASS
-      } else if (isPasses && item.quality < 50) {
+      } else if (isPasses && isQualityUnder50) {
         // increase quality by 1 per day cap at 49
         item.quality++;
-        // 10 days or less
+        // 10 days or less: increase another 1 if under 50 (+2)
         if (item.sellIn < 11) {
-          // increase another 1 if under 50 (+2)
           item.quality++;
         }
-        // 5 day or less
+        // 5 day or less: increase another 1 if under 50 (+3)
         if (item.sellIn < 6) {
-          // increase another 1 if under 50 (+3)
           item.quality++;
         }
-        // When expired
-        if (item.sellIn < 0) {
+        // When expired set to 0
+        if (isExpired) {
           item.quality = 0;
         }
         // AGED BRIE
-      } else if (isBrie && item.quality < 50) {
-        // increase by 1 as older
+      } else if (isBrie && isQualityUnder50) {
+        // increase by 1 as older; cap at 49
         item.quality++;
       }
-      // decrement sellIn if not Sulfuras
-      // if (item.name != "Sulfuras, Hand of Ragnaros") {
-      //   item.sellIn = item.sellIn - 1;
-      // }
-      // if expired
-      // if (item.sellIn < 0) {
-      //   // not brie
-      //   if (!isBrie) {
-      //     // not pass
-      //     if (!isPasses) {
-      //       // quality more than 0 and not sulfuras
-      //       // quality decrease 1 more per day (double)
-      //       if (item.quality > 0) {
-      //         if (!isSulfuras) {
-      //           item.quality--;
-      //         }
-      //       }
-      // yes pass
-      // } else {
-      //   // set quality to zero
-      //   item.quality = item.quality - item.quality;
-      // }
-      // yes brie
-      // } else {
-      //   if (item.quality < 50) {
-      //     // increase quality by 1 more ???
-      //     item.quality = item.quality + 1;
-      // }
-      // }
-      // }
     });
 
     return this.items;
