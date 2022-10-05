@@ -9,6 +9,20 @@ describe("Gilded Rose", function () {
       expect(items[0].sellIn).toBe(4);
       expect(items[0].quality).toBe(6);
     });
+
+    it("Quality should never be negative", function () {
+      const gildedRose = new Shop([new Item("+5 Dexterity Vest", 10, 0)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(9);
+      expect(items[0].quality).toBe(0);
+    });
+
+    it("Quality should degrade twice a fast when SellIn is negative", function () {
+      const gildedRose = new Shop([new Item("+5 Dexterity Vest", 0, 2)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(-1);
+      expect(items[0].quality).toBe(0);
+    });
   });
 
   describe("Aged Brie", function () {
