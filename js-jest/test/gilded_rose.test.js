@@ -80,5 +80,41 @@ describe("Gilded Rose", function () {
       expect(items[0].sellIn).toBe(14);
       expect(items[0].quality).toBe(21);
     });
+
+    it("should increase Quality by 1 as SellIn value approaches", function () {
+      const gildedRose = new Shop([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+      ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(14);
+      expect(items[0].quality).toBe(21);
+    });
+
+    it("should increase Quality by 2 when 10 days or less", function () {
+      const gildedRose = new Shop([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20),
+      ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(9);
+      expect(items[0].quality).toBe(22);
+    });
+
+    it("should increase Quality by 3 when 5 days or less", function () {
+      const gildedRose = new Shop([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0),
+      ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(4);
+      expect(items[0].quality).toBe(3);
+    });
+
+    it("should drop Quality to 0 when expired", function () {
+      const gildedRose = new Shop([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10),
+      ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(-1);
+      expect(items[0].quality).toBe(0);
+    });
   });
 });
