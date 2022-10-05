@@ -25,6 +25,9 @@ class Shop {
         if (item.quality > 0) {
           // decrement quality by 1 per day
           item.quality--;
+          if (item.sellIn < 0) {
+            item.quality--;
+          }
         }
         // CONCERT PASS
       } else if (isPasses && item.quality < 50) {
@@ -54,31 +57,31 @@ class Shop {
       //   item.sellIn = item.sellIn - 1;
       // }
       // if expired
-      if (item.sellIn < 0) {
-        // not brie
-        if (!isBrie) {
-          // not pass
-          if (!isPasses) {
-            // quality more than 0 and not sulfuras
-            // quality decrease 1 more per day (double)
-            if (item.quality > 0) {
-              if (!isSulfuras) {
-                item.quality--;
-              }
-            }
-            // yes pass
-            // } else {
-            //   // set quality to zero
-            //   item.quality = item.quality - item.quality;
-            // }
-            // yes brie
-            // } else {
-            //   if (item.quality < 50) {
-            //     // increase quality by 1 more ???
-            //     item.quality = item.quality + 1;
-          }
-        }
-      }
+      // if (item.sellIn < 0) {
+      //   // not brie
+      //   if (!isBrie) {
+      //     // not pass
+      //     if (!isPasses) {
+      //       // quality more than 0 and not sulfuras
+      //       // quality decrease 1 more per day (double)
+      //       if (item.quality > 0) {
+      //         if (!isSulfuras) {
+      //           item.quality--;
+      //         }
+      //       }
+      // yes pass
+      // } else {
+      //   // set quality to zero
+      //   item.quality = item.quality - item.quality;
+      // }
+      // yes brie
+      // } else {
+      //   if (item.quality < 50) {
+      //     // increase quality by 1 more ???
+      //     item.quality = item.quality + 1;
+      // }
+      // }
+      // }
     });
 
     return this.items;
