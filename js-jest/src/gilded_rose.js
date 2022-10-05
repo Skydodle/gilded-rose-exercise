@@ -14,17 +14,19 @@ class Shop {
     this.items.forEach((item) => {
       item.sellIn--;
 
-      const isRegularItem =
-        item.name != "Aged Brie" &&
-        item.name != "Backstage passes to a TAFKAL80ETC concert" &&
-        item.name != "Sulfuras, Hand of Ragnaros";
+      const isBrie = item.name == "Aged Brie";
+      const isPasses = item.name == "Backstage passes to a TAFKAL80ETC concert";
+      const isSulfuras = item.name == "Sulfuras, Hand of Ragnaros";
+
+      const isRegularItem = !isBrie && !isPasses && !isSulfuras;
+
       // REGULAR ITEMS quality -1 per day
       // if item is not brie and not concert pass (these two increase qlt per day instead)
       if (isRegularItem) {
         // quality is greater than 0
         if (item.quality > 0) {
           // not sulfuras
-          if (item.name != "Sulfuras, Hand of Ragnaros") {
+          if (!isSulfuras) {
             // decrement quality by 1 per day
             item.quality--;
           }
@@ -36,7 +38,7 @@ class Shop {
           // increase quality by 1 per day
           item.quality++;
           // if its a pass
-          if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+          if (isPasses) {
             // 10 days or less
             if (item.sellIn < 11) {
               // increase another 1 if under 50 (+2)
@@ -61,13 +63,13 @@ class Shop {
       // if expired
       if (item.sellIn < 0) {
         // not brie
-        if (item.name != "Aged Brie") {
+        if (!isBrie) {
           // not pass
-          if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
+          if (!isPasses) {
             // quality more than 0 and not sulfuras
             // quality decrease 1 more per day (double)
             if (item.quality > 0) {
-              if (item.name != "Sulfuras, Hand of Ragnaros") {
+              if (!isSulfuras) {
                 item.quality--;
               }
             }
